@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if isEdit %}Modifier un Pokémon{% else %}Ajouter un Pokémon{% endif %}{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <h1>{% if isEdit %}Modifier un Pokémon{% else %}Ajouter un Pokémon{% endif %}</h1>
+
+        {% if app.flashes('success') %}
+            <div style="color: green;">
+                {% for message in app.flashes('success') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form action="{% if isEdit %}{{ path('pokemon_edit', {'id': pokemon.id}) }}{% else %}{{ path('pokemon_add') }}{% endif %}" method="POST">
+            <div>
+                <label for="name">Nom :</label>
+                <input type="text" id="name" name="name" placeholder="Nom" required value="{{ pokemon is defined ? pokemon.name : '' }}">
+            </div>
+            <div>
+                <label for="height">Hauteur (cm) :</label>
+                <input type="number" id="height" name="height" placeholder="Hauteur (cm)" required value="{{ pokemon is defined ? pokemon.height : '' }}">
+            </div>
+            <div>
+                <label for="weight">Poids (kg) :</label>
+                <input type="number" id="weight" name="weight" placeholder="Poids (kg)" required value="{{ pokemon is defined ? pokemon.weight : '' }}">
+            </div>
+            <div>
+                <label for="types">Types (séparés par des virgules) :</label>
+                <input type="text" id="types" name="types" placeholder="Types" required value="{{ pokemon is defined ? pokemon.types | join(', ') : '' }}">
+            </div>
+            <div>
+                <label for="abilities">Capacités (séparées par des virgules) :</label>
+                <input type="text" id="abilities" name="abilities" placeholder="Capacités" required value="{{ pokemon is defined ? pokemon.abilities | join(', ') : '' }}">
+            </div>
+            <div>
+                <label for="imageUrl">URL de l'image :</label>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="URL de l'image" required value="{{ pokemon is defined ? pokemon.imageUrl : '' }}">
+            </div>
+            <button type="submit">{% if isEdit %}Modifier Pokémon{% else %}Ajouter Pokémon{% endif %}</button>
+        </form>
+    </div>
+{% endblock %}

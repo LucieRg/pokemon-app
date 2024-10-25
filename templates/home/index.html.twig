@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pokédex{% endblock %}
+
+{% block body %}
+    <h1>Pokédex</h1>
+
+    <div class="pokemon-card">
+        {% if pokemon %}
+            <h2>{{ pokemon.name | title }}</h2>
+            {% if pokemon.imageUrl %}
+                <img src="{{ pokemon.imageUrl }}" alt="{{ pokemon.name }}" class="pokemon-image">
+            {% else %}
+                <img src="{{ pokemon.frontDefault }}" alt="{{ pokemon.name }}" class="pokemon-image">
+            {% endif %}
+            <p><strong>Hauteur:</strong> {{ (pokemon.height / 10) | number_format(1, ',', ' ') }} m</p>
+            <p><strong>Poids:</strong> {{ (pokemon.weight / 10) | number_format(1, ',', ' ') }} kg</p>
+            <p><strong>Types:</strong>
+                {% if pokemon.types is not empty %}
+                    {{ pokemon.types | join(', ') }}
+                {% else %}
+                    Aucun type disponible
+                {% endif %}
+            </p>
+
+            <p><strong>Capacités:</strong></p>
+            <div class="abilities-box">
+                <ul>
+                    {% if pokemon.abilities is not empty %}
+                        {% for ability in pokemon.abilities %}
+                            <li>{{ ability }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Aucune capacité disponible</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <form action="{{ path('pokemon_delete', {'id': pokemon.id}) }}" method="POST" style="display: inline;">
+                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce Pokémon ?');">Supprimer</button>
+            </form>
+            <a href="{{ path('pokemon_edit', {'id': pokemon.id}) }}">
+                <button>Modifier</button>
+            </a>
+        {% else %}
+            <p>Aucun Pokémon sélectionné.</p>
+        {% endif %}
+    </div>
+
+    <h3>Liste de tous les Pokémon</h3>
+    <div class="search-container">
+        <form action="{{ path('pokemon_search') }}" method="POST">
+            <input type="text" id="pokemonNameOrId" name="pokemonNameOrId" placeholder="Nom du Pokemon" required>
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
+    <ul class="pokemon-list">
+        {% for pkm in pokemons %}
+            <li>
+                <a href="{{ path('app_home', {'id': pkm.id}) }}">
+                    {% if pkm.imageUrl %}
+                        <img src="{{ pkm.imageUrl }}" alt="{{ pkm.name }}" class="pokemon-image">
+                    {% else %}
+                        <img src="{{ pkm.frontDefault }}" alt="{{ pkm.name }}" class="pokemon-image">
+                    {% endif %}
+                    <h3>{{ pkm.name | title }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

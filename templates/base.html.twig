@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pokédex{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="{{ path('app_home', { id: 1 }) }}">Accueil</a></li>
+        <li><a href="{{ path('pokemon_add_form') }}">Ajouter Pokémon</a></li>
+    </ul>
+</nav>
+
+{% block body %}{% endblock %}
+
+</body>
+</html>
