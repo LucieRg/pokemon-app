@@ -17,7 +17,6 @@ public/uploads/
 
 # Docker
 docker-compose.override.yml
-docker-compose.yml
 /.docker
 
 # Configurations d'IDE
