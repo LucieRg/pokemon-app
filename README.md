@@ -36,8 +36,8 @@ L'application présente une interface où les utilisateurs peuvent explorer les 
  3. **Exécutez les migrations (si nécessaire):**
     
     ```bash
-    docker-compose exec php bin/console doctrine:migrations:migrate
-   ```
+      docker-compose exec php bin/console doctrine:migrations:migrate
+    ```
 
 ## Utilisation
 
@@ -69,3 +69,4 @@ docker-compose exec php bin/console app:fetch-api-data
 ## Contribuer
 
 Les contributions sont les bienvenues ! N'hésitez pas à soumettre des demandes de tirage (pull requests) ou à ouvrir des problèmes (issues) pour toute suggestion ou bug.
+
